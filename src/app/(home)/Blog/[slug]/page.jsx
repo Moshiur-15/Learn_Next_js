@@ -4,13 +4,15 @@ import React from 'react';
 
 const BlogDetails = ({ params }) => {
     const { slug } = params;
-    const router = useRouter();
 
+    const router = useRouter();
     return (
         <div>
             <h2>Blog Details</h2>
             <p>ID: {slug}</p>
-            <button className='border p-2' onClick={() => router.push('/Blog')}>Back</button>
+            <button className='border p-2' 
+            onClick={() => router.push('/Blog')}
+            >Back to Blog</button>
         </div>
     );
 };
