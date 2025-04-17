@@ -44,7 +44,7 @@ const Blogs = () => {
         <div>
             blogs page
             {blog.map(b=> <div key={b.id}>
-                <Link href={`/blog/${b.id}`}>{b.name}</Link>
+                <Link href={`/Blog/${b.id}`}>{b.name}</Link>
             </div>)}
         </div>
     );
