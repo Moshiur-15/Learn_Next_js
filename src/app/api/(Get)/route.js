@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 const product = [
   {
-    "id": "p001",
+    "id": 1,
     "name": "Wireless Bluetooth Headphones",
     "price": 59.99,
     "category": "Electronics",
@@ -11,7 +11,7 @@ const product = [
     "rating": 4.5
   },
   {
-    "id": "p002",
+    "id": 2,
     "name": "Men's Classic Sneakers",
     "price": 39.99,
     "category": "Footwear",
@@ -21,17 +21,17 @@ const product = [
     "rating": 4.2
   },
   {
-    "id": "p003",
+    "id": 3,
     "name": "Smart Watch Series 7",
     "price": 199.99,
-    "category": "Electronics",
+    "category": "Electronic",
     "description": "Feature-rich smartwatch with heart rate monitor, GPS, and more.",
     "image": "https://example.com/images/smartwatch.jpg",
     "inStock": false,
     "rating": 4.7
   },
   {
-    "id": "p004",
+    "id": 4,
     "name": "Cotton T-Shirt (Pack of 3)",
     "price": 25.0,
     "category": "Clothing",
@@ -41,10 +41,10 @@ const product = [
     "rating": 4.1
   },
   {
-    "id": "p005",
+    "id": 5,
     "name": "Gaming Mouse RGB",
     "price": 29.5,
-    "category": "Electronics",
+    "category": "Electroncs",
     "description": "Ergonomic gaming mouse with customizable RGB lighting and 6 buttons.",
     "image": "https://example.com/images/mouse.jpg",
     "inStock": true,
@@ -53,6 +53,15 @@ const product = [
 ]
 
 
+
+// GET REQUEST
 export async function GET(req) {
-    return NextResponse.json({ message: 'Learn Get Request', product });
+    return NextResponse.json({ message: 'GET REQUEST', product });
+}
+
+//POST REQUEST
+export async function POST(req) {
+  const data = await req.json();
+  product.push(data);
+  return NextResponse.json({message: 'POST REQUEST', BodyData: data})
 }
