@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-const product = [
+let product = [
   {
     id: 1,
     name: "Wireless Bluetooth Headphones",
@@ -69,21 +69,66 @@ export async function POST(req) {
 }
 
 // PUT REQUEST
+// export async function PUT(req) {
+//   const { searchParams } = req.nextUrl;
+//   const id = parseInt(searchParams.get("id"));
+
+//   const productToUpdate = await req.json();
+
+//   for(let i=0; i<product.length; i++){
+//     if(product[i].id == id){
+//       product[i].category = productToUpdate.category;
+//       product[i].description = productToUpdate.description;
+//       product[i].image = productToUpdate.image;
+//       product[i].inStock = productToUpdate.inStock;
+//       product[i].rating = productToUpdate.rating;
+//     }
+//   }
+//   // const products = productToUpdate.find((p) => p.id === id);
+//   return NextResponse.json({
+//     message: "PUT REQUEST",
+//     success: true,
+//     product
+//   });
+// }
+
 export async function PUT(req) {
-  const { id, price, name } = await req.json();
-  console.log(id, price, name)
-  // return NextResponse.json({message:"Send...."})
-  const productToUpdate = product.find(p=>p.id === id);
+  const { searchParams } = req.nextUrl;
+  const id = parseInt(searchParams.get("id"));//delete id
+  const updatedData = await req.json(); //user update data
+
+  const productToUpdate = product.find(p => p.id === id);
 
   if (productToUpdate) {
-    productToUpdate.price = price;
-    productToUpdate.name = name;
+    productToUpdate.category = updatedData.category || productToUpdate.category;
+    productToUpdate.description = updatedData.description || productToUpdate.description;
+    productToUpdate.image = updatedData.image || productToUpdate.image;
+    productToUpdate.inStock = updatedData.inStock !== undefined ? updatedData.inStock : productToUpdate.inStock;
+    productToUpdate.rating = updatedData.rating || productToUpdate.rating;
+
     return NextResponse.json({
-      message: "PUT REQUEST",
-      success:true,
-      product: productToUpdate,
+      message: "PRODUCT UPDATED SUCCESSFULLY",
+      success: true,
+      updatedProduct: productToUpdate, 
     });
-  }else{
-    return NextResponse.json({ message: "Product not found" });
+  } else {
+    return NextResponse.json({
+      message: "PRODUCT NOT FOUND",
+      success: false,
+    }, { status: 404 });
   }
+}
+
+
+// DELATE REQUEST
+export async function DELETE(req) {
+  const { searchParams } = req.nextUrl;
+  const id = parseInt(searchParams.get("id"));
+  console.log(id)
+  product = product.filter(p=>p.id !== id);
+  return NextResponse.json({
+    message: "DELETE REQUEST",
+    success:true,
+    product
+  })
 }
