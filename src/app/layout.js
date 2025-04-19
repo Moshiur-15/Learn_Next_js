@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./globals.css";
 export const metadata = {
   title: "Create Next App",
@@ -8,11 +9,28 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-
-          <main>
-            {children}
-          </main>
-
+        <nav class="bg-blue-600 text-white p-4">
+          <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Learn Next js</h1>
+            <ul class="flex gap-4">
+              <li>
+                <Link href="/" className="hover:underline">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="" className="hover:underline">
+                  Login
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main className="min-h-screen">{children}</main>
+        {/* footer */}
+        <footer className="bg-gray-800 text-white p-4 text-center mt-10">
+          <p>&copy; 2025 MY SHOP. All rights reserved.</p>
+        </footer>
       </body>
     </html>
   );
